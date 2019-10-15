@@ -35,7 +35,7 @@ public class DataMunger {
 
 	public String[] getSplitStrings(String queryString) {
 
-		return null;
+		return queryString.toLowerCase().split("\\s+");
 	}
 
 	/*
@@ -47,8 +47,12 @@ public class DataMunger {
 	 */
 
 	public String getFileName(String queryString) {
-
-		return null;
+		
+		String str = queryString.substring(queryString.indexOf("from")+5);
+		String[] str1 = str.split(" ");
+	//str1 = str.split(" ");
+		
+		return str1[0];
 	}
 
 	/*
@@ -63,7 +67,10 @@ public class DataMunger {
 	
 	public String getBaseQuery(String queryString) {
 
-		return null;
+		String str1 = queryString.substring(0, queryString.lastIndexOf("from"));
+		String[] str2 = queryString.substring(queryString.lastIndexOf("from")).split(" ");
+		
+		return str1 + str2[0] + " "+str2[1];
 	}
 
 	/*
@@ -79,8 +86,11 @@ public class DataMunger {
 	 */
 	
 	public String[] getFields(String queryString) {
+		
+		String[] str = queryString.split(" ");
+		str = queryString.split(" ");
 
-		return null;
+		return str[1].split(",");
 	}
 
 	/*
@@ -114,8 +124,19 @@ public class DataMunger {
 	 */
 
 	public String[] getConditions(String queryString) {
-
-		return null;
+		
+		if(queryString.contains("where")) {
+			String str = queryString.substring(queryString.indexOf("where")+6);
+			
+			String[] str1 = str.split(" and | or ");
+			//str1 = str.split(" and | or ");
+			
+			return str1;
+			
+		}else {
+			return null;
+		}
+		
 	}
 
 	/*
@@ -143,8 +164,15 @@ public class DataMunger {
 	 */
 
 	public String[] getOrderByFields(String queryString) {
-
+		
+		/*if(queryString.contains("order by")) {
+			
+			
+		}else {
+			return null;
+		}*/
 		return null;
+
 	}
 
 	/*
@@ -157,7 +185,16 @@ public class DataMunger {
 	 */
 
 	public String[] getGroupByFields(String queryString) {
-
+		
+		if(queryString.contains("group by")) {
+		//	String groupBuQuery = queryString
+			return queryString.substring(queryString.indexOf("group by")+9).split("group by");
+			/*String[] str1 = new String[str.length];
+			for(int i = 0; i < str.length; i++) {
+				str1[i] = str[i];
+			}*/
+		//	return str;
+		}
 		return null;
 	}
 
