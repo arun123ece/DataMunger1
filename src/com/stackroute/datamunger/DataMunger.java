@@ -144,7 +144,7 @@ public class DataMunger {
 	public String[] getConditions(String queryString) {
 		
 		queryString = queryString.toLowerCase();
-		if(queryString.contains("where")) {
+		if(queryString.contains(" where ")) {
 			
 			if(queryString.contains("order by")) {
 				queryString = queryString.substring(0, queryString.indexOf(" order by"));
@@ -155,7 +155,7 @@ public class DataMunger {
 			if(queryString.contains("group by")) {
 				queryString = queryString.substring(0, queryString.indexOf(" group by"));
 			}
-			String str = queryString.substring(queryString.indexOf("where")+6);
+			String str = queryString.substring(queryString.indexOf(" where ")+7);
 			
 			
 			String[] str1 = str.split(" and | or ");
@@ -229,8 +229,13 @@ public class DataMunger {
 	public String[] getGroupByFields(String queryString) {
 		
 		if(queryString.contains("group by")) {
+			
+			String str = queryString.toLowerCase().substring(queryString.indexOf("group by"));
+			String[] str1 = str.split(" group by | having | order by ");
+			str = str1[0].replace("group by ", "");
 		//	String groupBuQuery = queryString
-			return queryString.substring(queryString.indexOf("group by")+9).split("group by");
+		//	return queryString.substring(queryString.indexOf("group by")+9).split("group by");
+			return str.split(",");
 			/*String[] str1 = new String[str.length];
 			for(int i = 0; i < str.length; i++) {
 				str1[i] = str[i];
