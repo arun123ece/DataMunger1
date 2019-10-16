@@ -257,7 +257,7 @@ public class DataMunger {
 
 	public String[] getAggregateFunctions(String queryString) {
 		
-		queryString = queryString.substring(queryString.indexOf("select ")+7, queryString.indexOf("from")).trim().replace("*", "");
+		queryString = queryString.substring(queryString.indexOf("select ")+7, queryString.indexOf(" from ")).trim().replace("*", "");
 		if(queryString.length() == 0) {
 			return null;
 		}
